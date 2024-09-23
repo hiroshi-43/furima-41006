@@ -15,7 +15,6 @@
 
 ### Association
 - has_many :items
-- has_one :residence
 - has_many :orders
 
 
@@ -50,7 +49,7 @@
 | user               | references | null: false, foreign_key: true |
 
 ### Association
-- belong_to :user
+- belong_to :order
 
 ## orders テーブル
 
@@ -61,5 +60,6 @@
 
 ### Association
 - belong_to :item
-- belong_to :user
+- belong_to :order
+- has_one :residence
 
