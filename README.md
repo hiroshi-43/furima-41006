@@ -33,7 +33,7 @@
 | user               | references | null: false, foreign_key: true |
 
 ### Association
-- belongs_to :uesrs
+- belongs_to :uesr
 - has_one :order
 
 ## residences テーブル
@@ -45,11 +45,11 @@
 | adress             | string  | null: false |
 | building_name      | string  |             |
 | prefecture_id      | integer | null: false |
-| phone_num          | integer | null: false |
-| user               | references | null: false, foreign_key: true |
+| phone_num          | string  | null: false |
+| order              | references | null: false, foreign_key: true |
 
 ### Association
-- belong_to :order
+- belongs_to :order
 
 ## orders テーブル
 
@@ -59,7 +59,7 @@
 | user               | references | null: false, foreign_key: true |
 
 ### Association
-- belong_to :item
-- belong_to :order
+- belongs_to :item
+- belongs_to :order
 - has_one :residence
 
