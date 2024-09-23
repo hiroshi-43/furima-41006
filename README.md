@@ -11,13 +11,11 @@
 | first_name         | string  | null: false |
 | last_name_kana     | string  | null: false |
 | first_name_kana    | string  | null: false |
-| ad                 | integer | null: false |
-| month              | integer | null: false |
-| date               | integer | null: false |
+| birth_day          | date    | null: false |
 
 ### Association
 - has_many :items
-- belongs_to :orders
+- has_one :residence
 
 
 ## items テーブル
@@ -26,86 +24,38 @@
 | ------------------ | ------- | ----------- |
 | item_name          | string  | null: false |
 | item_text          | text    | null: false |
-| item_price         | integer | null: false |
-| prefecture_id      | references | null: false, foreign_key: true |
-| category_id        | references | null: false, foreign_key: true |
-| condition_id       | references | null: false, foreign_key: true |
-| ship_cost_id       | references | null: false, foreign_key: true |
-| deli_time_id       | references | null: false, foreign_key: true |
+| price              | integer | null: false |
+| prefecture_id      | integer | null: false |
+| category_id        | integer | null: false |
+| condition_id       | integer | null: false |
+| ship_cost_id       | integer | null: false |
+| deli_time_id       | integer | null: false |
 | user_id            | references | null: false, foreign_key: true |
 
 ### Association
 - belongs_to :uesrs
-- belongs_to :prefectures
-- belongs_to :categorys
-- belongs_to :conditions
-- belongs_to :shippingcosts
-- belongs_to :deliverytimes
+- has_one :order
 
+## residences テーブル
 
-## prefectures テーブル
-
-| Column             | Type   | Options     |
-| ------------------ | ------ | ----------- |
-| prefecture         | text   | null: false |
-
-### Association
-- has_many :items
-- has_many :orders
-
-
-## conditions テーブル
-
-| Column             | Type   | Options     |
-| ------------------ | ------ | ----------- |
-| conditon           | text   | null: false |
+| Column             | Type    | Options     |
+| ------------------ | ------- | ----------- |
+| postal_code        | integer | null: false |
+| city               | string  | null: false |
+| adress             | string  | null: false |
+| building_name      | string  |             |
+| prefecture_id      | integer | null: false |
+| user_id            | references | null: false, foreign_key: true |
 
 ### Association
-- has_many :items
-
-## categorys テーブル
-
-| Column             | Type   | Options     |
-| ------------------ | ------ | ----------- |
-| category           | text   | null: false |
-
-### Association
-- has_many :items
-
-
-## shippingcosts テーブル
-
-| Column             | Type   | Options     |
-| ------------------ | ------ | ----------- |
-| ship_cost          | text   | null: false |
-
-### Association
-- has_many :items
-
-## deliverytimes テーブル
-
-| Column             | Type   | Options     |
-| ------------------ | ------ | ----------- |
-| deli_time          | text   | null: false |
-
-### Association
-- has_many :items
-
+- belong_to :user
 
 ## orders テーブル
 
 | Column             | Type    | Options     |
 | ------------------ | ------- | ----------- |
-| card_num           | integer | null: false |
-| name               | text    | null: false |
-| deadline           | integer | null: false |
-| security_code      | integer | null: false |
-| postal_code        | integer | null: false |
-| city               | string  | null: false |
-| adress             | string  | null: false |
-| building_name      | string  |             |
-| prefecture_id      | references | null: false, foreign_key: true |
+| item_id            | references | null: false, foreign_key: true |
 
 ### Association
-- belongs_to :prefectures
+- belong_to :item
 
