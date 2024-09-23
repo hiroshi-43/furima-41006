@@ -16,6 +16,7 @@
 ### Association
 - has_many :items
 - has_one :residence
+- has_many :orders
 
 
 ## items テーブル
@@ -30,7 +31,7 @@
 | condition_id       | integer | null: false |
 | ship_cost_id       | integer | null: false |
 | deli_time_id       | integer | null: false |
-| user_id            | references | null: false, foreign_key: true |
+| user               | references | null: false, foreign_key: true |
 
 ### Association
 - belongs_to :uesrs
@@ -40,12 +41,13 @@
 
 | Column             | Type    | Options     |
 | ------------------ | ------- | ----------- |
-| postal_code        | integer | null: false |
+| postal_code        | string  | null: false |
 | city               | string  | null: false |
 | adress             | string  | null: false |
 | building_name      | string  |             |
 | prefecture_id      | integer | null: false |
-| user_id            | references | null: false, foreign_key: true |
+| phone_num          | integer | null: false |
+| user               | references | null: false, foreign_key: true |
 
 ### Association
 - belong_to :user
@@ -54,8 +56,10 @@
 
 | Column             | Type    | Options     |
 | ------------------ | ------- | ----------- |
-| item_id            | references | null: false, foreign_key: true |
+| item               | references | null: false, foreign_key: true |
+| user               | references | null: false, foreign_key: true |
 
 ### Association
 - belong_to :item
+- belong_to :user
 
