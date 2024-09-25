@@ -14,5 +14,5 @@ class User < ApplicationRecord
   validates :password, format: { with: /\A(?=.*?[a-zA-Z])(?=.*?\d)[a-zA-Z\d]+\z/, message: 'には英字と数字の両方を含めて設定してください' },
                        on: :update, allow_blank: true
 
-  has_many :items
+  # has_many :items
 end
