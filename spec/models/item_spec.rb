@@ -7,11 +7,97 @@ RSpec.describe Item, type: :model do
   end
 
   describe '出品情報登録' do
-    it '全ての必須項目が存在すれば出品できる' do
-      expect(@item).to be_valid
+    context '出品登録できるとき' do
+      it '全ての必須項目が存在すれば出品できる' do
+        expect(@item).to be_valid
+      end
     end
 
-    # 追加のテストケースがあればここに記述
+    context '出品登録できないとき' do
+      it 'item_nameが空では登録できない' do
+        @item.item_name = ''
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Item name can't be blank")
+      end
+
+      it 'item_textが空では登録できない' do
+        @item.item_text = ''
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Item text can't be blank")
+      end
+
+      it 'category_idが空では登録できない' do
+        @item.category_id = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Category can't be blank")
+      end
+
+      it 'condition_idが空では登録できない' do
+        @item.condition_id = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Condition can't be blank")
+      end
+
+      it 'ship_cost_idが空では登録できない' do
+        @item.ship_cost_id = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Ship cost can't be blank")
+      end
+
+      it 'prefecture_idが空では登録できない' do
+        @item.prefecture_id = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Prefecture can't be blank")
+      end
+
+      it 'deli_time_idが空では登録できない' do
+        @item.deli_time_id = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Deli time can't be blank")
+      end
+
+      it 'priceが空では登録できない' do
+        @item.price = ''
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price can't be blank")
+      end
+
+      it 'item_nameが41文字以上では登録できない' do
+        @item.item_name = 'a' * 41
+        @item.valid?
+        expect(@item.errors.full_messages).to include('Item name is too long (maximum is 40 characters)')
+      end
+
+      it 'item_textが1000文字以上では登録できない' do
+        @item.item_text = 'a' * 1001
+        @item.valid?
+        expect(@item.errors.full_messages).to include('Item text is too long (maximum is 1000 characters)')
+      end
+
+      it 'priceが300円以下では登録できない' do
+        @item.price = '299'
+        @item.valid?
+        expect(@item.errors.full_messages).to include('Price must be greater than or equal to 300')
+      end
+
+      it 'priceが10000000円以上では登録できない' do
+        @item.price = '10000000'
+        @item.valid?
+        expect(@item.errors.full_messages).to include('Price must be less than or equal to 9999999')
+      end
+
+      it 'priceは全角数字では登録できない' do
+        @item.price = '３００'
+        @item.valid?
+        expect(@item.errors.full_messages).to include('Price is not a number')
+      end
+
+      it 'ユーザーが紐付いていなければ投稿できない' do
+        @item.user = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include('User must exist')
+      end
+    end
   end
 end
 
