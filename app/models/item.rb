@@ -1,5 +1,6 @@
 class Item < ApplicationRecord
   belongs_to :user
+  has_one_attached :image
 
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to_active_hash :prefecture
@@ -8,7 +9,8 @@ class Item < ApplicationRecord
   belongs_to_active_hash :deli_time
   belongs_to_active_hash :ship_cost
 
-  has_one_attached :image
+  validates :item_name, :item_text, :price, :prefecture_id, :category_id, :condition_id, :ship_cost_id, :deli_time_id,
+            presence: true
 
   validates :item_name, presence: true, length: { maximum: 40 }
   validates :item_text, presence: true, length: { maximum: 1000 }
