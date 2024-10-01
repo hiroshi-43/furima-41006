@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :new, :create]
+  before_action :authenticate_user!, except: [:index]
 
   def index
     # @items = Item.all
@@ -32,6 +32,6 @@ class ItemsController < ApplicationController
       :deli_time_id,
       :ship_cost_id,
       :image
-    )
+    ).merge(user_id: current_user.id)
   end
 end

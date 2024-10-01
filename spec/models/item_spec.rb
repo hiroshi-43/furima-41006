@@ -26,34 +26,34 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include("Item text can't be blank")
       end
 
-      it 'category_idが空では登録できない' do
-        @item.category_id = nil
+      it 'category_idが0では登録できない' do
+        @item.category_id = 0
         @item.valid?
-        expect(@item.errors.full_messages).to include("Category can't be blank")
+        expect(@item.errors.full_messages).to include('Category must be other than 0')
       end
 
-      it 'condition_idが空では登録できない' do
-        @item.condition_id = nil
+      it 'condition_idが0では登録できない' do
+        @item.condition_id = 0
         @item.valid?
-        expect(@item.errors.full_messages).to include("Condition can't be blank")
+        expect(@item.errors.full_messages).to include('Condition must be other than 0')
       end
 
-      it 'ship_cost_idが空では登録できない' do
-        @item.ship_cost_id = nil
+      it 'ship_cost_idが0では登録できない' do
+        @item.ship_cost_id = 0
         @item.valid?
-        expect(@item.errors.full_messages).to include("Ship cost can't be blank")
+        expect(@item.errors.full_messages).to include('Ship cost must be other than 0')
       end
 
-      it 'prefecture_idが空では登録できない' do
-        @item.prefecture_id = nil
+      it 'prefecture_idが0では登録できない' do
+        @item.prefecture_id = 0
         @item.valid?
-        expect(@item.errors.full_messages).to include("Prefecture can't be blank")
+        expect(@item.errors.full_messages).to include('Prefecture must be other than 0')
       end
 
-      it 'deli_time_idが空では登録できない' do
-        @item.deli_time_id = nil
+      it 'deli_time_idが0では登録できない' do
+        @item.deli_time_id = 0
         @item.valid?
-        expect(@item.errors.full_messages).to include("Deli time can't be blank")
+        expect(@item.errors.full_messages).to include('Deli time must be other than 0')
       end
 
       it 'priceが空では登録できない' do
@@ -92,10 +92,16 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include('Price is not a number')
       end
 
-      it 'ユーザーが紐付いていなければ投稿できない' do
+      it 'ユーザーが紐付いていなければ出品できない' do
         @item.user = nil
         @item.valid?
         expect(@item.errors.full_messages).to include('User must exist')
+      end
+
+      it '画像が空では出品できない' do
+        @item.image = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Image can't be blank")
       end
     end
   end
