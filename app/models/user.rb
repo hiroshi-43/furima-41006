@@ -15,4 +15,5 @@ class User < ApplicationRecord
                        on: :update, allow_blank: true
 
   has_many :items
+  has_one :order
 end
