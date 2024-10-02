@@ -1,11 +1,11 @@
 class Item < ApplicationRecord
   belongs_to :user
   has_one_attached :image
-  has_one :order
+  # has_one :order
 
-  def sold_out?
-    order.present?
-  end
+  # def sold_out?
+  # order.present?
+  # end
   # present?はRailsのメソッドで、オブジェクトがnilではない、および空でないことを確認します。
   # そのオブジェクトが存在していればtrue、存在していなければfalseを返します。
 
