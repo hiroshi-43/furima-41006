@@ -3,6 +3,14 @@ class Item < ApplicationRecord
   has_one_attached :image
   # has_one :order
 
+  def on_sale?
+    status == 'sale' # 'status' カラムが 'sale' の場合、販売中とする
+  end
+
+  def sold_out?
+    status == 'sold'
+  end
+
   # def sold_out?
   # order.present?
   # end
