@@ -1,5 +1,7 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
+  before_action :find_item, only: [:edit, :update, :show]
+  before_action :authorize_user, only: [:edit, :update]
 
   def index
     @items = Item.order(created_at: :desc)
@@ -20,11 +22,25 @@ class ItemsController < ApplicationController
   end
 
   def show
-    @item = Item.find(params[:id])
     @user = @item.user # itemがuserに属している場合
   end
 
+  def edit
+  end
+
+  def update
+    if @item.update(item_params)
+      redirect_to @item
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
   private
+
+  def find_item
+    @item = Item.find(params[:id])
+  end
 
   def item_params
     params.require(:item).permit(
@@ -38,5 +54,11 @@ class ItemsController < ApplicationController
       :ship_cost_id,
       :image
     ).merge(user_id: current_user.id)
+  end
+
+  def authorize_user
+    unless @item.user == current_user # rubocop:disable Style/GuardClause
+      redirect_to root_path, alert: 'You are not authorized to edit this item.'
+    end
   end
 end
