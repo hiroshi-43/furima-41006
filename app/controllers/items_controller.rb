@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!, except: [:index, :show] # index,show以外のアクションにおいて、ログインしていない場合はログインページに遷移する
   before_action :find_item, only: [:edit, :update, :show, :destroy]
   before_action :authorize_user, only: [:edit, :update, :destroy]
 
@@ -23,8 +23,8 @@ class ItemsController < ApplicationController
 
   def show
     @user = @item.user # itemがuserに属している場合
-  end
-
+  end０っx
+  m
   def edit
   end
 
