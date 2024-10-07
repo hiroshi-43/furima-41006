@@ -1,4 +1,4 @@
-class I　temsController < ApplicationController
+class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :find_item, only: [:edit, :update, :show, :destroy]
   before_action :authorize_user, only: [:edit, :update, :destroy]
@@ -19,6 +19,10 @@ class I　temsController < ApplicationController
     else
       render :new, status: :unprocessable_entity
     end
+  end
+
+  def purchase
+    # 購入画面に関連するロジックをここに追加します
   end
 
   def show
