@@ -24,9 +24,9 @@ class Item < ApplicationRecord
   validates :price, presence: true,
                     numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999, only_integer: true }
 
-  validates :prefecture_id, numericality: { other_than: 1, message: 'must be other than 0' }
-  validates :category_id, numericality: { other_than: 1, message: 'must be other than 0' }
-  validates :condition_id, numericality: { other_than: 1, message: 'must be other than 0' }
-  validates :deli_time_id, numericality: { other_than: 1, message: 'must be other than 0' }
-  validates :ship_cost_id, numericality: { other_than: 1, message: 'must be other than 0' }
+  validates :prefecture_id, numericality: { other_than: 0, message: 'must be other than 0' }
+  validates :category_id, numericality: { other_than: 0, message: 'must be other than 0' }
+  validates :condition_id, numericality: { other_than: 0, message: 'must be other than 0' }
+  validates :deli_time_id, numericality: { other_than: 0, message: 'must be other than 0' }
+  validates :ship_cost_id, numericality: { other_than: 0, message: 'must be other than 0' }
 end
