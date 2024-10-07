@@ -1,4 +1,4 @@
-class ItemsController < ApplicationController
+class I　temsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :find_item, only: [:edit, :update, :show, :destroy]
   before_action :authorize_user, only: [:edit, :update, :destroy]
