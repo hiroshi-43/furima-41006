@@ -8,5 +8,6 @@ FactoryBot.define do
     prefecture_id { Faker::Number.between(from: 0, to: 48) }
     user_id { Faker::Number.non_zero_digit }
     item_id { Faker::Number.non_zero_digit }
+    token { "tok_#{SecureRandom.alphanumeric(24)}" } # ランダムなトークンを生成
   end
 end
