@@ -2,12 +2,19 @@ require 'rails_helper'
 
 RSpec.describe ItemAddress, type: :model do
   before do
-    @item_address = FactoryBot.build(:item_address)
+    @user = FactoryBot.create(:user) # DBにユーザーを生成
+    @item = FactoryBot.create(:item, user: @user) # DBに商品を生成し、ユーザーに関連付け
+    @item_address = FactoryBot.build(:item_address, user_id: @user.id, item_id: @item.id)
   end
 
   describe '配送先の住所情報の保存' do
     context '配送先の住所情報が保存できる場合' do
       it 'すべての値が正しく入力されていれば保存できること' do
+        expect(@item_address).to be_valid
+      end
+
+      it '建物名が空でも保存できること' do
+        @item_address.building_name = ''
         expect(@item_address).to be_valid
       end
     end
@@ -37,6 +44,18 @@ RSpec.describe ItemAddress, type: :model do
         expect(@item_address.errors.full_messages).to include("Phone num can't be blank")
       end
 
+      it 'phone_numが9桁以下では保存できないこと' do
+        @item_address.phone_num = '123456789'
+        @item_address.valid?
+        expect(@item_address.errors.full_messages).to include('Phone num is invalid. Enter 10 or 11 digits without hyphens.')
+      end
+
+      it 'phone_numが12桁以上では保存できないこと' do
+        @item_address.phone_num = '123456789012'
+        @item_address.valid?
+        expect(@item_address.errors.full_messages).to include('Phone num is invalid. Enter 10 or 11 digits without hyphens.')
+      end
+
       it 'phone_numがフォーマット違いでは保存できないこと' do
         @item_address.phone_num = '090-1234-5678'
         @item_address.valid?
@@ -59,6 +78,24 @@ RSpec.describe ItemAddress, type: :model do
         @item_address.building_name = ''
         @item_address.valid?
         expect(@item_address.errors.full_messages).to be_empty
+      end
+
+      it 'tokenが空では保存できないこと' do
+        @item_address.token = ''
+        @item_address.valid?
+        expect(@item_address.errors.full_messages).to include("Token can't be blank")
+      end
+
+      it 'user_idが空では保存できないこと' do
+        @item_address.user_id = nil
+        @item_address.valid?
+        expect(@item_address.errors.full_messages).to include("User can't be blank")
+      end
+
+      it 'item_idが空では保存できないこと' do
+        @item_address.item_id = nil
+        @item_address.valid?
+        expect(@item_address.errors.full_messages).to include("Item can't be blank")
       end
     end
   end

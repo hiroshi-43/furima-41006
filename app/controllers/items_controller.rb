@@ -22,10 +22,6 @@ class ItemsController < ApplicationController
     end
   end
 
-  def purchase
-    # 購入画面に関連するロジックをここに追加します
-  end
-
   def show
     @user = @item.user # itemがuserに属している場合
   end
@@ -74,7 +70,6 @@ class ItemsController < ApplicationController
   end
 
   def redirect_if_sold_out
-    @item = Item.find(params[:id])
     if @item.sold_out? && @item.user == current_user # rubocop:disable Style/GuardClause
       redirect_to root_path, notice: '売却済み商品の編集はできません。'
     end

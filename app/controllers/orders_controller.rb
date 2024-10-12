@@ -1,15 +1,14 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_item, only: [:index, :create]
   before_action :redirect_if_item_sold_or_owned, only: [:index, :create]
 
   def index
     gon.public_key = ENV['PAYJP_PUBLIC_KEY']
-    @item = Item.find(params[:item_id])
     @order = ItemAddress.new
   end
 
   def create
-    @item = Item.find(params[:item_id])
     @order = ItemAddress.new(order_params.merge(user_id: current_user.id, item_id: @item.id))
 
     if @order.valid?
@@ -32,6 +31,10 @@ class OrdersController < ApplicationController
       :building_name,
       :phone_num
     ).merge(token: params[:token])
+  end
+
+  def set_item
+    @item = Item.find(params[:item_id])
   end
 
   def redirect_if_item_sold_or_owned

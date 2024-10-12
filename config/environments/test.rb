@@ -57,4 +57,8 @@ Rails.application.configure do
 
   # Annotate rendered view with file names.
   # config.action_view.annotate_rendered_view_with_filenames = true
+  # 
+  config.active_job.queue_adapter = :inline 
+  #config.active_job.queue_adapter = :inlineを設定すると、
+  #バックグラウンドジョブが即座に同期的に実行されるため、テスト中にデータベースの状態が予測しやすくなり、問題が解決しやすくなります。
 end
