@@ -2,6 +2,7 @@ class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :find_item, only: [:edit, :update, :show, :destroy]
   before_action :authorize_user, only: [:edit, :update, :destroy]
+  before_action :redirect_if_sold_out, only: [:edit, :update]
 
   def index
     @items = Item.order(created_at: :desc)
@@ -65,6 +66,12 @@ class ItemsController < ApplicationController
   def authorize_user
     unless @item.user == current_user # rubocop:disable Style/GuardClause
       redirect_to root_path, alert: 'You are not authorized to edit this item.'
+    end
+  end
+
+  def redirect_if_sold_out
+    if @item.sold_out? && @item.user == current_user # rubocop:disable Style/GuardClause
+      redirect_to root_path, notice: '売却済み商品の編集はできません。'
     end
   end
 end

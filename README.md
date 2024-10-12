@@ -42,7 +42,7 @@
 | ------------------ | ------- | ----------- |
 | postal_code        | string  | null: false |
 | city               | string  | null: false |
-| adress             | string  | null: false |
+| address            | string  | null: false |
 | building_name      | string  |             |
 | prefecture_id      | integer | null: false |
 | phone_num          | string  | null: false |
