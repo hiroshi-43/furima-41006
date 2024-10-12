@@ -7,8 +7,5 @@ FactoryBot.define do
     phone_num { Faker::Number.leading_zero_number(digits: 11) }
     prefecture_id { Faker::Number.between(from: 1, to: 47) }
     token { "tok_#{SecureRandom.alphanumeric(24)}" } # ランダムなトークンを生成
-
-    association :user
-    association :item
   end
 end

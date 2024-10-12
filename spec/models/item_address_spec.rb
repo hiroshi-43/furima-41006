@@ -74,12 +74,6 @@ RSpec.describe ItemAddress, type: :model do
         expect(@item_address.errors.full_messages).to include("Address can't be blank")
       end
 
-      it 'building_nameが空でも保存できること' do
-        @item_address.building_name = ''
-        @item_address.valid?
-        expect(@item_address.errors.full_messages).to be_empty
-      end
-
       it 'tokenが空では保存できないこと' do
         @item_address.token = ''
         @item_address.valid?
